@@ -1,16 +1,27 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
+import { TodoContext } from './TodoContext'
 
-export default function TaskForm({ onSubmit }) {
-    const [newItem, setNewItem] = useState("")
+export default function TaskForm() {
+    // const [newItem, setNewItem] = useState("")
+
+    const { setTodos } = useContext(TodoContext)
 
     function handleSubmit(e) {
         e.preventDefault()
+        const formData = new FormData(e.target)
 
-        if (newItem === "") return
+        const data = Object.fromEntries(formData.entries())
 
-        onSubmit(newItem)
+        if (data.todo_title === "") return
 
-        setNewItem("")
+        setTodos(currentTodos => {
+            return [
+                ...currentTodos,
+                { id: Math.random(), title: data.todo_title, completed: false }
+            ]
+        }
+        )
+
     }
 
     return (
@@ -20,8 +31,7 @@ export default function TaskForm({ onSubmit }) {
                     <label htmlFor='item' className="font-semibold text-lg p-2 bg-gray-700 bg-opacity-85 rounded-md mt-0">New Item:</label>
                     <input type="text"
                         id="item"
-                        value={newItem}
-                        onChange={e => setNewItem(e.target.value)}
+                        name="todo_title"
                         className="text-black items-end border-blue-400 border-solid border-2  rounded-md"
                         placeholder="Enter a task..." />
                 </div>
