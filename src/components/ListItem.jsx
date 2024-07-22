@@ -3,7 +3,7 @@ import React from 'react'
 export default function ListItem({completed, id, title, toggleToDo, deleteTodo}) {
 
     return (
-        <li className="inline-flex flex-row gap-1 justify-between items-center text-gray-5 bg-gray-700 w-5/6 m-1.5 border-dotted border-2 border-white  rounded-xl  ">
+        <li className="inline-flex flex-row gap-1 justify-between items-center text-gray-5 bg-gray-700 w-5/6 m-1.5 border-dotted border-2 border-white px-2 rounded-xl  ">
             <label className="p-3 ml-0">
                 <input 
                     className=""
